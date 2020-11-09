@@ -1,0 +1,6 @@
+export const ROLENAMES = {
+  SUPERADMIN: "SUPER_ADMIN",
+  REGISTEREDUSER: "REGISTERED_USER",
+};
+
+export default ROLENAMES;

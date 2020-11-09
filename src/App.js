@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect, useState } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+//private-route-layers
+import WithAuth from "./Components/WithAuth";
+import WithoutAuth from "./Components/WithoutAuth";
+//pages
+import NotFoundPage from "./Pages/NotFound/NotFoundPage";
+import NoAccessPage from "./Pages/NotFound/NoAccessPage";
+import AuthPage from "./Pages/Auth/AuthPage";
+import HomePage from "./Pages/Home/HomePage";
 
-function App() {
+//api
+import api from "./Redux/api";
+//actions
+
+function App(props) {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  if (history.location.pathname === "/") {
+    history.push("/home");
+  }
+
+  if (history.location.pathname === "/auth") {
+    return <WithoutAuth exact path="/auth" component={AuthPage} />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Switch>
+        <WithAuth exact path="/home" component={HomePage} />
+
+        <Route exact path="/404" component={NoAccessPage} />
+        <Route exact path="*" component={NotFoundPage} />
+      </Switch>
+    </Fragment>
   );
 }
 
