@@ -48,31 +48,18 @@ function JobsList(job) {
     }
   }
 
-  function clickButton() {
-    console.log(data);
-  }
-
   return (
     <Container>
       {data.map((job) => (
         <Job job={job}></Job>
       ))}
-
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          clickButton();
-        }}
-      >
-        Click here
-      </button>
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
-  flex-direction:column
+  flex-direction: column;
 `;
 
 JobsList.defaultProps = {};
