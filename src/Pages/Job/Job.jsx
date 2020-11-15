@@ -7,16 +7,19 @@ import Button from "../../Components/Button";
 //actions
 //components
 
-function Job(job) {
+function Job(jobModel) {
   const dispatch = useDispatch();
-  const [job, setJob] = useState(job);
-  
+  const [job, setJob] = useState(jobModel.job);
+
+  useEffect(() => {
+    console.log(jobModel.job);
+  }, {});
+
   return (
     <Container>
       <h2>İş barədə</h2>
-  <p>{job.recruiterName}</p>
-  <p>{job.categoryName}</p>
-
+      <p>{job.username}</p>
+      <p>{job.category}</p>
     </Container>
   );
 }

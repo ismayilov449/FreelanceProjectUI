@@ -6,6 +6,7 @@ import { signOut } from "../../Redux/Slicers/user.slice";
 import Button from "../../Components/Button";
 //actions
 //components
+import JobsList from "../Job/JobsList";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ function HomePage() {
   }
   return (
     <Container>
-      <h2>Giriş</h2>
+      <JobsList></JobsList>
       <Button
         text="Log out"
         color="white"
