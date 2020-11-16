@@ -30,4 +30,12 @@ export default {
     },
   },
   home: {},
+  jobs: {
+    getall: async (offset, limit) => {
+      return await AxiosWithInterceptor.get(
+        `/api/job/getall?&offset=${offset}&limit=${limit}`,
+        options()
+      ).then((res) => res.data);
+    },
+  },
 };
