@@ -49,17 +49,20 @@ function JobsList(job) {
   }
 
   return (
-    <Container>
+    <div class="ui equal width grid" style={{
+      margin: "20px 200px 20px 200px",
+     
+    }}>
       {data.map((job) => (
         <Job job={job}></Job>
       ))}
-    </Container>
+    </div>
   );
 }
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 JobsList.defaultProps = {};
