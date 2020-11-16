@@ -54,5 +54,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:6001"
+  "proxy": "http://139.162.132.175",
+  "secure": false
 }
