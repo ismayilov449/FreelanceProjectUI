@@ -34,14 +34,12 @@ function Job(jobModel) {
   return (
     <Container>
       <Card
-        className="ui card"
+        className="ui red card"
         style={{
-          margin: "5px",
-          border: "2px darkorange solid",
-          borderradius: "5px",
+          height:"200px"
         }}
       >
-        <CardContent className="content" style={{ background: "#D3D3D3" }}>
+        <CardContent className="content" style={{ background: "#f0dfdf" }}>
           <CardHeader className="header">{job.category}</CardHeader>
           <CardMeta className="meta">
             <h5 style={{ textDecoration: "underline" }}>{job.username}</h5>
@@ -49,16 +47,11 @@ function Job(jobModel) {
         </CardContent>
         <CardContent className="content">
           <CardDescription className="description">
-            <h5 style={{ fontWeight: "bold" }}>
-              {job.salaryMin} - {job.salaryMax} AZN
-            </h5>
+          
+            <a class="ui red label"> {job.salaryMin} - {job.salaryMax} AZN</a>
+
           </CardDescription>
-          <CardDescription className="description">
-            {job.description}
-          </CardDescription>
-          <CardDescription className="description">
-            {job.requirements}
-          </CardDescription>
+          
         </CardContent>
         <CardContent className="extra content">
           <button class="ui right labeled icon button">
