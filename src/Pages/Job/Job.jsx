@@ -37,7 +37,7 @@ function Job(jobModel) {
 
   function _onClick(e) {
     e.preventDefault();
-    history.push("/jobDetails", job);
+    history.push("/details", job);
     console.log(job);
   }
 

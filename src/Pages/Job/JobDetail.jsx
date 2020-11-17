@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import validator from "validator";
 import { signOut } from "../../Redux/Slicers/user.slice";
@@ -19,50 +20,25 @@ import {
   CardDescription,
   CardMeta,
 } from "semantic-ui-react";
-import api from "../../Redux/api";
 
 //actions
 //components
 
-function Job(jobModel) {
+function JobDetail(jobModel) {
   const dispatch = useDispatch();
-  // const translation = useSelector((state) => state.translation.selected.messages);
-
-  //state
-  const [id, setId] = useState("b3c6d38f-8f6a-4b09-ab34-0d06f3e4c482");
-  const [data, setData] = useState([]);
+  const [job, setJob] = useState(jobModel.location.state);
 
   useEffect(() => {
-    getOperations(id);
-  }, []);
+    console.log(job);
+  }, {});
 
-
-  async function getOperations(id) {
-    try {
-      const { list } = await api.jobs.getbyid(id);
-      setData(list);
-      console.log("efewfewfw")
-      console.log(list);
-      //setStatusCode(true);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  async function _onClick(e) {
-    // setLoading(true);
+  function _onClick(e) {
     e.preventDefault();
-   console.log("dwdfe");
+
+    console.log(job.id);
   }
-  return (
-    
-<div class="ui two column centered grid">
-  <div class="column"></div>
-  <div class="four column centered row">
-    <div class="column">{data.position}</div>
-    <div class="column"></div>
-  </div>
-</div>
-  );
+
+  return <Container>{job.id}</Container>;
 }
 
 const Container = styled.div`
@@ -73,6 +49,6 @@ const Container = styled.div`
   padding: 5px;
 `;
 
-Job.defaultProps = {};
+JobDetail.defaultProps = {};
 
-export default Job;
+export default JobDetail;
