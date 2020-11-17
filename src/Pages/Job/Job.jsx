@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import validator from "validator";
 import { signOut } from "../../Redux/Slicers/user.slice";
 import Button from "../../Components/Button";
@@ -25,39 +27,28 @@ import { Link } from "react-router-dom";
 //components
 
 function Job(jobModel) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [job, setJob] = useState(jobModel.job);
 
   useEffect(() => {
     console.log(jobModel.job);
   }, {});
-  async function _onClick(e) {
-    console.log("edf");
-    // setLoading(true);
+
+  function _onClick(e) {
     e.preventDefault();
-    //setErrors(errors);
-   // if (Object.keys(errors).length === 0) {
-      try {
-        await dispatch();
-      } catch (err) {
-       // console.log(err);
-    //    setErrors({
-      //    email: "Server side error",
-        //});
-      } finally {
-        // setLoading(false);
-      }
-    //} else {
-      //setLoading(false);
-    //}
+    history.push("/jobDetails", job);
+    console.log(job);
   }
+
   return (
     <Container>
       <Card
         className="ui red card"
         style={{
-          height:"200px"
+          height: "200px",
         }}
+        onClick={(e) => _onClick(e)}
       >
         <CardContent className="content" style={{ background: "#f0dfdf" }}>
           <CardHeader className="header">{job.category}</CardHeader>
@@ -67,11 +58,11 @@ function Job(jobModel) {
         </CardContent>
         <CardContent className="content">
           <CardDescription className="description">
-          
-            <a class="ui red label"> {job.salaryMin} - {job.salaryMax} AZN</a>
-
+            <a class="ui red label">
+              {" "}
+              {job.salaryMin} - {job.salaryMax} AZN
+            </a>
           </CardDescription>
-          
         </CardContent>
         <CardContent className="extra content">
         <Link to="detail" class="ui right labeled icon button">    
