@@ -56,22 +56,18 @@ function Job(jobModel) {
 
     <Container>
       <Leftside>
-        <div>
-          <div className="header-text">
-            <strong>Əlaqə</strong>
+        <div style={{ alignItems: "right" }}>
+          <div>
+            <strong style={{ color: "#eab121" }}>Əlaqə</strong>
           </div>
-          <strong>Email</strong>
-          <input
-            type="email"
-            style={{ borderRadius: "5px", marginLeft: "10px" }}
-          ></input>
+          <div>
+            <Strong>Email</Strong>
+            <input type="email" style={{ borderRadius: "5px" }}></input>
+          </div>
         </div>
         <div>
-          <strong style={{ marginTop: "20px" }}>Telefon</strong>
-          <input
-            type="phone"
-            style={{ borderRadius: "5px", marginLeft: "10px" }}
-          ></input>
+          <Strong>Telefon</Strong>
+          <input type="phone" style={{ borderRadius: "5px" }}></input>
         </div>
       </Leftside>
       <Rightside>
@@ -95,16 +91,15 @@ const Container = styled.div`
 
 const Leftside = styled.div`
   flex: 1;
-
-  & > .header-text {
-    margin-bottom: 20px;
-    color: #eab121;
-    font-size: 26px;
-  }
+  padding: 10px;
 `;
 
 const Rightside = styled.div`
   flex: 1;
+`;
+
+const Strong = styled.strong`
+  margin: 15px;
 `;
 
 Job.defaultProps = {};
