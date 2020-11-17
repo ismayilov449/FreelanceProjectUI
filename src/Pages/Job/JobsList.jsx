@@ -9,7 +9,7 @@ import api from "../../Redux/api";
 //components
 import Job from "../Job/Job";
 
-function JobsList(job) {
+function JobsList() {
   const dispatch = useDispatch();
   // const translation = useSelector((state) => state.translation.selected.messages);
 

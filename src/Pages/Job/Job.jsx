@@ -19,6 +19,7 @@ import {
   CardDescription,
   CardMeta,
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 //actions
 //components
@@ -30,7 +31,26 @@ function Job(jobModel) {
   useEffect(() => {
     console.log(jobModel.job);
   }, {});
-
+  async function _onClick(e) {
+    console.log("edf");
+    // setLoading(true);
+    e.preventDefault();
+    //setErrors(errors);
+   // if (Object.keys(errors).length === 0) {
+      try {
+        await dispatch();
+      } catch (err) {
+       // console.log(err);
+    //    setErrors({
+      //    email: "Server side error",
+        //});
+      } finally {
+        // setLoading(false);
+      }
+    //} else {
+      //setLoading(false);
+    //}
+  }
   return (
     <Container>
       <Card
@@ -54,10 +74,11 @@ function Job(jobModel) {
           
         </CardContent>
         <CardContent className="extra content">
-          <button class="ui right labeled icon button">
-            <i class="right arrow icon"></i>
+        <Link to="detail" class="ui right labeled icon button">    
+                  <i class="right arrow icon"></i>
+
             Ətraflı
-          </button>
+         </Link>
         </CardContent>
       </Card>
     </Container>

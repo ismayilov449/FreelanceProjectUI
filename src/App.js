@@ -10,6 +10,7 @@ import NotFoundPage from "./Pages/NotFound/NotFoundPage";
 import NoAccessPage from "./Pages/NotFound/NoAccessPage";
 import AuthPage from "./Pages/Auth/AuthPage";
 import HomePage from "./Pages/Home/HomePage";
+import JobDetail from "./Pages/Job/JobDetail"
 
 //api
 import api from "./Redux/api";
@@ -31,6 +32,7 @@ function App(props) {
     <Fragment>
       <Switch>
         <WithAuth exact path="/home" component={HomePage} />
+        <Route exact path="/detail" component={JobDetail} />
 
         <Route exact path="/404" component={NoAccessPage} />
         <Route exact path="*" component={NotFoundPage} />
