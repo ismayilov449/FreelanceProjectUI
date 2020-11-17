@@ -49,12 +49,14 @@ function JobsList(job) {
   }
 
   return (
-    <div class="ui equal width grid" style={{
-      margin: "20px 200px 20px 200px",
-     
-    }}>
+    <div
+      class="ui equal width grid"
+      style={{
+        margin: "20px 200px 20px 200px",
+      }}
+    >
       {data.map((job) => (
-        <Job job={job}></Job>
+        <Job value={job.id} job={job}></Job>
       ))}
     </div>
   );

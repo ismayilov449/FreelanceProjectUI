@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import validator from "validator";
 import { signOut } from "../../Redux/Slicers/user.slice";
 import Button from "../../Components/Button";
@@ -24,6 +26,7 @@ import {
 //components
 
 function Job(jobModel) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [job, setJob] = useState(jobModel.job);
 
@@ -31,13 +34,20 @@ function Job(jobModel) {
     console.log(jobModel.job);
   }, {});
 
+  function _onClick(e) {
+    e.preventDefault();
+    history.push("/jobDetails", job);
+    console.log(job);
+  }
+
   return (
     <Container>
       <Card
         className="ui red card"
         style={{
-          height:"200px"
+          height: "200px",
         }}
+        onClick={(e) => _onClick(e)}
       >
         <CardContent className="content" style={{ background: "#f0dfdf" }}>
           <CardHeader className="header">{job.category}</CardHeader>
@@ -47,11 +57,11 @@ function Job(jobModel) {
         </CardContent>
         <CardContent className="content">
           <CardDescription className="description">
-          
-            <a class="ui red label"> {job.salaryMin} - {job.salaryMax} AZN</a>
-
+            <a class="ui red label">
+              {" "}
+              {job.salaryMin} - {job.salaryMax} AZN
+            </a>
           </CardDescription>
-          
         </CardContent>
         <CardContent className="extra content">
           <button class="ui right labeled icon button">
