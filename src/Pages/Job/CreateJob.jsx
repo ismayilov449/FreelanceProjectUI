@@ -19,8 +19,6 @@ function Job(jobModel) {
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [education, setEducation] = useState([]);
-  const [user, setUser] = useState({});
-
   const history = useHistory();
 
   useEffect(() => {
