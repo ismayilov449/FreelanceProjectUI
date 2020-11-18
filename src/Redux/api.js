@@ -37,5 +37,11 @@ export default {
         options()
       ).then((res) => res.data);
     },
+    getbyid: async (id) => {
+      return await AxiosWithInterceptor.get(
+        `/api/job/getbyid?&id=${id}`,
+        options()
+      ).then((res) => res.data);
+    },
   },
 };

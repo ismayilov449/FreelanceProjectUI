@@ -21,6 +21,7 @@ import {
   CardDescription,
   CardMeta,
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 //actions
 //components
@@ -36,7 +37,7 @@ function Job(jobModel) {
 
   function _onClick(e) {
     e.preventDefault();
-    history.push("/jobDetails", job);
+    history.push("/details", job);
     console.log(job);
   }
 
@@ -64,10 +65,11 @@ function Job(jobModel) {
           </CardDescription>
         </CardContent>
         <CardContent className="extra content">
-          <button class="ui right labeled icon button">
-            <i class="right arrow icon"></i>
+        <Link to="detail" class="ui right labeled icon button">    
+                  <i class="right arrow icon"></i>
+
             Ətraflı
-          </button>
+         </Link>
         </CardContent>
       </Card>
     </Container>
