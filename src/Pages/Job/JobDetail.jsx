@@ -95,7 +95,8 @@ function JobDetail(jobModel) {
           </div>
         </div>
 
-        <div class="equal width row ">
+        <div class="equal width row "
+        >
           <div class="column">
             <div class="ui large label"
               style={{
@@ -110,7 +111,7 @@ function JobDetail(jobModel) {
           <div class="column">
             <div class=" ui large label" 
               style={{
-                marginLeft: "150px ",
+                marginRight:"150px",
                 background:"white"
               }}
             >
