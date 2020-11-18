@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import App from "./App";
 import "semantic-ui-css/semantic.min.css";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 //store
 import store from "./Redux/store";
 //actions
