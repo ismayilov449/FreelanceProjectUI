@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getToken } from "./Utils/auth.utils";
 import AxiosWithInterceptor from "./Utils/axios.interceptor.utils";
+import Axios from "axios";
 
 const options = () => ({
   headers: {
@@ -28,8 +29,23 @@ export default {
         },
       });
     },
+    getCurrentUser: async () => {
+      var token = {
+        Token: getToken(),
+      };
+      console.log(token);
+      return await axios
+        .post(`/api/auth/getcurrentuser`, token, options())
+        .then((res) => res.data);
+    },
   },
+  //############
+  //### home ###
+  //############
   home: {},
+  //############
+  //### jobs ###
+  //############
   jobs: {
     getall: async (offset, limit) => {
       return await AxiosWithInterceptor.get(
@@ -37,9 +53,61 @@ export default {
         options()
       ).then((res) => res.data);
     },
-    getbyid: async (id) => {
+    post: async (requestData) => {
+      return await AxiosWithInterceptor.post(
+        `/api/job`,
+        requestData,
+        options()
+      ).then((res) => res.data);
+    },
+  },
+  //############
+  //### city ###
+  //############
+  city: {
+    getall: async () => {
       return await AxiosWithInterceptor.get(
-        `/api/job/getbyid?&id=${id}`,
+        `/api/city/getall?&offset=${0}&limit=${100}`,
+        options()
+      ).then((res) => res.data);
+    },
+    getallpaging: async (offset, limit) => {
+      return await AxiosWithInterceptor.get(
+        `/api/city/getall?&offset=${offset}&limit=${limit}`,
+        options()
+      ).then((res) => res.data);
+    },
+  },
+  //############
+  //### category ###
+  //############
+  category: {
+    getall: async () => {
+      return await AxiosWithInterceptor.get(
+        `/api/category/getall?&offset=${0}&limit=${100}`,
+        options()
+      ).then((res) => res.data);
+    },
+    getallpaging: async (offset, limit) => {
+      return await AxiosWithInterceptor.get(
+        `/api/category/getall?&offset=${offset}&limit=${limit}`,
+        options()
+      ).then((res) => res.data);
+    },
+  },
+  //############
+  //### education ###
+  //############
+  education: {
+    getall: async () => {
+      return await AxiosWithInterceptor.get(
+        `/api/education/getall?&offset=${0}&limit=${100}`,
+        options()
+      ).then((res) => res.data);
+    },
+    getallpaging: async (offset, limit) => {
+      return await AxiosWithInterceptor.get(
+        `/api/education/getall?&offset=${offset}&limit=${limit}`,
         options()
       ).then((res) => res.data);
     },
