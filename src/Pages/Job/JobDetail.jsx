@@ -66,60 +66,129 @@ function JobDetail(jobModel) {
         <div class=" ui three column grid  ">
           <br></br>
           <div class="row ui label">
-            <div class="column">Şəhər:</div>
+            <div
+              class="column"
+              style={{
+                color: "black ",
+              }}
+            >
+              Şəhər:
+            </div>
             <div class="column">{job.city}</div>
           </div>
           <div class="row ui label" style={{ background: "white" }}>
-            <div class="column">Deadline:</div>
+            <div
+              class="column"
+              style={{
+                color: "black ",
+              }}
+            >
+              Deadline:
+            </div>
             <div class="column">
               {new Date(job.deadline).toLocaleDateString()}
             </div>
           </div>
           <div class="row ui label">
-            <div class="column">Təhsil:</div>
+            <div
+              class="column"
+              style={{
+                color: "black ",
+              }}
+            >
+              Təhsil:
+            </div>
             <div class="column">{job.education}</div>
           </div>
           <div class="row ui label" style={{ background: "white" }}>
-            <div class="column">Təcrübə:</div>
+            <div
+              class="column"
+              style={{
+                color: "black ",
+              }}
+            >
+              Təcrübə:
+            </div>
             <div class="column">{job.experience}</div>
           </div>
           <div class="row ui label">
-            <div class="column">Yaş:</div>
+            <div
+              class="column"
+              style={{
+                color: "black ",
+              }}
+            >
+              Yaş:
+            </div>
             <div class="column">
               {job.ageMin} - {job.ageMax}
             </div>
           </div>
           <div class="row ui label" style={{ background: "white" }}>
-            <div class="column">Şirkət:</div>
+            <div
+              class="column"
+              style={{
+                color: "black ",
+              }}
+            >
+              Şirkət:
+            </div>
             <div class="column">{job.companyName}</div>
           </div>
         </div>
 
-        <div class="equal width row "
-        >
+        <div class="equal width row ">
           <div class="column">
-            <div class="ui large label"
+            <div
+              class="ui large label"
               style={{
                 marginLeft: "150px ",
               }}
             >
-              <div >Tələblər:</div>
+              <div
+                style={{
+                  color: "black ",
+                }}
+              >
+                Tələblər:
+              </div>
               <br></br>
               <div>{job.requirements}</div>
             </div>
           </div>
           <div class="column">
-            <div class=" ui large label" 
+            <div
+              class=" ui large label"
               style={{
-                marginRight:"150px",
-                background:"white"
+                marginRight: "150px",
+                background: "white",
               }}
             >
               {" "}
-              <div class="row">İş barədə məlumat:</div>
+              <div
+                class="row"
+                style={{
+                  color: "black ",
+                }}
+              >
+                İş barədə məlumat:
+              </div>
               <br></br>
               <div class="row"> {job.description}</div>
             </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="ui label">
+            Elanın tarixi:
+            <div class="detail"> {new Date(job.publishedDate).toLocaleDateString()}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="ui label">
+            Bitmə tarixi:
+            <div class="detail"> {new Date(job.endDate).toLocaleDateString()}</div>
           </div>
         </div>
       </div>
