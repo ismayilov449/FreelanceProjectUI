@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import validator from "validator";
 import api from "../../Redux/api";
 import { Button, Card, Form, Grid, Col, Row, ListGroup } from "react-bootstrap";
@@ -17,7 +19,7 @@ function Job(jobModel) {
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [education, setEducation] = useState([]);
-  const [user, setUser] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
     _getCities();
@@ -56,7 +58,7 @@ function Job(jobModel) {
   async function _onSave(e) {
     e.preventDefault();
     await api.jobs.post(data);
-    console.log(data);
+    history.push("/home");
   }
 
   return (
