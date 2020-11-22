@@ -40,7 +40,7 @@ function WithAuth({ operation, component: Component, ...rest }) {
       render={(props) =>
         token ? (
           _checkAccess() ? (
-            <Component operation={operation} {...props} />
+            <Component {...props} />
           ) : (
             <Redirect to="/404" />
           )

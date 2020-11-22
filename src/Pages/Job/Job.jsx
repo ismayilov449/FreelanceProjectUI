@@ -31,14 +31,9 @@ function Job(jobModel) {
   const dispatch = useDispatch();
   const [job, setJob] = useState(jobModel.job);
 
-  useEffect(() => {
-    console.log(jobModel.job);
-  }, {});
-
   function _onClick(e) {
     e.preventDefault();
     history.push("/details", job);
-    console.log(job);
   }
 
   return (
@@ -65,11 +60,10 @@ function Job(jobModel) {
           </CardDescription>
         </CardContent>
         <CardContent className="extra content">
-        <Link to="detail" class="ui right labeled icon button">    
-                  <i class="right arrow icon"></i>
-
+          <Link to="detail" class="ui right labeled icon button">
+            <i class="right arrow icon"></i>
             Ətraflı
-         </Link>
+          </Link>
         </CardContent>
       </Card>
     </Container>

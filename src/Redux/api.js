@@ -60,6 +60,13 @@ export default {
         options()
       ).then((res) => res.data);
     },
+    fullSearch: async (requestData) => {
+      return await AxiosWithInterceptor.post(
+        `/api/job/getfullsearch`,
+        requestData,
+        options
+      );
+    },
   },
   //############
   //### city ###
