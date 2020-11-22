@@ -25,6 +25,8 @@ function App(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
+  const [jobs, setJobs] = useState([]);
+  const [operation, setOperation] = useState("all");
 
   if (history.location.pathname === "/") {
     history.push("/home");
@@ -54,13 +56,31 @@ function App(props) {
     }
   }
 
+  const setMainJobs = (filteredJobs) => {
+    setJobs(filteredJobs);
+  };
+
+  const setMainOperation = (changedOperation) => {
+    setOperation(changedOperation);
+  };
+
   return (
-    <div className="pushable" >
-      <Header></Header>
+    <div className="pushable">
+      <Header setjobs={setMainJobs} setOperation={setMainOperation}></Header>
       <div class="pusher">
         <Fragment>
           <Switch>
-            <WithAuth exact path="/home" component={HomePage} />
+            <WithAuth
+              exact
+              path="/home"
+              component={(props) => (
+                <HomePage
+                  jobs={jobs}
+                  operation={operation}
+                  {...props}
+                ></HomePage>
+              )}
+            />
             {/* Job */}
             <WithAuth exact path="/details" component={JobDetail} />
             <WithAuth exact path="/createJob" component={CreateJob} />

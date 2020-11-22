@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { Search } from "semantic-ui-react";
 import SearchFiltered from "./SearchFiltered";
 
-function Header() {
+function Header({ setjobs, setOperation, ...props }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
 
@@ -37,17 +37,25 @@ function Header() {
   return (
     <div class="ui inverted segment">
       <div class="ui inverted secondary pointing menu">
-        <Link class="active item" to="/home">
+        <Link
+          class="item"
+          to="/home"
+          onClick={(e) => {
+            setOperation("all");
+          }}
+        >
           Home
         </Link>
         <Link class="item" to="/createJob">
           Share Job
         </Link>
-        <SearchFiltered></SearchFiltered>
+        <SearchFiltered
+          setOperation={setOperation}
+          setjobs={setjobs}
+        ></SearchFiltered>
 
         {/* <a class="item">Friends</a> */}
         <div class="right menu">
-
           <a class="item" onClick={_onClick}>
             Logout
           </a>

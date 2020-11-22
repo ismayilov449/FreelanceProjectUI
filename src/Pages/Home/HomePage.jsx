@@ -10,9 +10,11 @@ import JobsList from "../Job/JobsList";
 import { Link } from "react-router-dom";
 import SearchFiltered from "../../Components/SearchFiltered";
 
-function HomePage() {
+function HomePage({ jobs, operation, ...props }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {}, []);
 
   async function _onClick(e) {
     // setLoading(true);
@@ -34,9 +36,8 @@ function HomePage() {
     }
   }
   return (
-    <div >
-
-      <JobsList></JobsList>
+    <div>
+      <JobsList jobs={jobs} operation={operation}></JobsList>
     </div>
   );
 }

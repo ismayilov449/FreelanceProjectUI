@@ -14,7 +14,6 @@ export const getRoles = () => {
       var roles =
         decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
       if (roles) {
-        console.log(roles);
         return roles.map((r) => r.toUpperCase());
       }
     } catch {
@@ -44,7 +43,6 @@ export const isInRole = (role) => {
   if (Array.isArray(roles)) {
     roles = roles.map((r) => r.toUpperCase());
     if (roles) {
-      console.log(roles);
       return roles.includes(role);
     }
     if (roles) {
