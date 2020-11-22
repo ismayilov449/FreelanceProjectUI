@@ -12,10 +12,19 @@ import SALARIES from "../../Redux/Constants/Salaries";
 import EXPERIENCE from "../../Redux/Constants/Experience";
 
 function Job(jobModel) {
-  const dispatch = useDispatch();
   const [data, setData] = useState({});
+
+  const [opacityMainCard, setOpacityMainCard] = useState(0.2);
+  const [opacityCard, setOpacityCard] = useState(1);
+
+  const [cardEnabled, setCardEnabled] = useState(false);
+  const [mainCardEnabled, setMainCarEnabled] = useState(true);
+
+  const [cardColor, setCardColor] = useState("gray");
+  const [mainCardColor, setMainCardColor] = useState("gray");
+
   const [toggleSubmit, setToggleSubmit] = useState(false);
-  const [opacityCard, setOpacityCard] = useState(0.2);
+
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [education, setEducation] = useState([]);
@@ -30,9 +39,23 @@ function Job(jobModel) {
 
   function _confirm(e) {
     e.preventDefault();
-    console.log(data);
-    setOpacityCard(1);
-    setToggleSubmit(true);
+    if (!IsNullOrWhiteSpace(data.email) && !IsNullOrWhiteSpace(data.phone)) {
+      setOpacityMainCard(1);
+      setOpacityCard(0.2);
+      setToggleSubmit(true);
+      setCardEnabled(true);
+      setMainCarEnabled(false);
+
+      setCardColor("gray");
+    } else {
+      setCardColor("#ff2626");
+    }
+  }
+
+  function IsNullOrWhiteSpace(value) {
+    if (value == null) return true;
+    if (value == undefined) return;
+    return value.replace(/\s/g, "").length == 0;
   }
 
   async function _getCities() {
@@ -57,14 +80,41 @@ function Job(jobModel) {
 
   async function _onSave(e) {
     e.preventDefault();
-    await api.jobs.post(data);
-    history.push("/home");
+
+    if (
+      !IsNullOrWhiteSpace(data.categoryId) &&
+      !IsNullOrWhiteSpace(data.position) &&
+      !IsNullOrWhiteSpace(data.cityId) &&
+      !IsNullOrWhiteSpace(data.salaryMin) &&
+      !IsNullOrWhiteSpace(data.salaryMax) &&
+      !IsNullOrWhiteSpace(data.ageMin) &&
+      !IsNullOrWhiteSpace(data.ageMax) &&
+      !IsNullOrWhiteSpace(data.educationId) &&
+      !IsNullOrWhiteSpace(data.experience) &&
+      !IsNullOrWhiteSpace(data.requirements) &&
+      !IsNullOrWhiteSpace(data.description) &&
+      !IsNullOrWhiteSpace(data.companyName)
+    ) {
+      await api.jobs.post(data);
+      history.push("/home");
+    } else {
+      setMainCardColor("#ff2626");
+    }
   }
 
   return (
     <Container>
       <Leftside>
-        <Card border="danger" style={{ padding: "20px", margin: "20px" }}>
+        <Card
+          //border="danger"
+          style={{
+            padding: "20px",
+            margin: "20px",
+            opacity: opacityCard,
+            borderColor: cardColor,
+            borderWidth: "2px",
+          }}
+        >
           <Card.Header
             style={{
               background: "#f0dfdf",
@@ -78,10 +128,11 @@ function Job(jobModel) {
             <blockquote className="blockquote mb-0">
               <Form>
                 <Form.Group controlId="email">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label className="required">Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Email"
+                    disabled={cardEnabled}
                     onChange={(e) => {
                       setData({ ...data, email: e.target.value });
                     }}
@@ -93,13 +144,19 @@ function Job(jobModel) {
                   <Form.Control
                     type="phone"
                     placeholder="Phone"
+                    disabled={cardEnabled}
                     onChange={(e) => {
                       setData({ ...data, phone: e.target.value });
                     }}
                   />
                 </Form.Group>
 
-                <Button variant="primary" onClick={(e) => _confirm(e)}>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  disabled={cardEnabled}
+                  onClick={(e) => _confirm(e)}
+                >
                   Davam et
                 </Button>
               </Form>
@@ -108,8 +165,14 @@ function Job(jobModel) {
         </Card>
 
         <Card
-          border="danger"
-          style={{ padding: "20px", margin: "20px", opacity: opacityCard }}
+          //border="danger"
+          style={{
+            padding: "20px",
+            margin: "20px",
+            borderColor: mainCardColor,
+            opacity: opacityMainCard,
+            borderWidth: "2px",
+          }}
         >
           <Card.Header
             style={{
@@ -127,6 +190,7 @@ function Job(jobModel) {
                   <Form.Label>Kateqoriya</Form.Label>
                   <Form.Control
                     as="select"
+                    disabled={mainCardEnabled}
                     onChange={(e) => {
                       setData({ ...data, categoryId: e.target.value });
                     }}
@@ -144,6 +208,7 @@ function Job(jobModel) {
                   <Form.Control
                     type="text"
                     placeholder="Vəzifə"
+                    disabled={mainCardEnabled}
                     onChange={(e) => {
                       setData({ ...data, position: e.target.value });
                     }}
@@ -153,6 +218,7 @@ function Job(jobModel) {
                   <Form.Label>Şəhər</Form.Label>
                   <Form.Control
                     as="select"
+                    disabled={mainCardEnabled}
                     onChange={(e) => {
                       setData({ ...data, cityId: e.target.value });
                     }}
@@ -185,6 +251,7 @@ function Job(jobModel) {
                     <Form.Group controlId="salaryMin">
                       <Form.Control
                         as="select"
+                        disabled={mainCardEnabled}
                         onChange={(e) => {
                           setData({ ...data, salaryMin: e.target.value });
                         }}
@@ -208,6 +275,7 @@ function Job(jobModel) {
                     <Form.Label>maximum</Form.Label>
                     <Form.Group
                       controlId="salaryMax"
+                      disabled={mainCardEnabled}
                       onChange={(e) => {
                         setData({ ...data, salaryMax: e.target.value });
                       }}
@@ -244,6 +312,7 @@ function Job(jobModel) {
                     <Form.Group controlId="ageMin">
                       <Form.Control
                         as="select"
+                        disabled={mainCardEnabled}
                         onChange={(e) => {
                           setData({ ...data, ageMin: e.target.value });
                         }}
@@ -268,6 +337,7 @@ function Job(jobModel) {
                     <Form.Group controlId="ageMax">
                       <Form.Control
                         as="select"
+                        disabled={mainCardEnabled}
                         onChange={(e) => {
                           setData({ ...data, ageMax: e.target.value });
                         }}
@@ -295,6 +365,7 @@ function Job(jobModel) {
                       <Form.Group controlId="education">
                         <Form.Control
                           as="select"
+                          disabled={mainCardEnabled}
                           onChange={(e) => {
                             setData({ ...data, educationId: e.target.value });
                           }}
@@ -319,6 +390,7 @@ function Job(jobModel) {
                       <Form.Group controlId="experience">
                         <Form.Control
                           as="select"
+                          disabled={mainCardEnabled}
                           onChange={(e) => {
                             setData({ ...data, experience: e.target.value });
                           }}
@@ -343,6 +415,7 @@ function Job(jobModel) {
                   <Form.Label>Namizədə tələblər</Form.Label>
                   <textarea
                     id="requirements"
+                    disabled={mainCardEnabled}
                     style={{ height: "100px" }}
                     onChange={(e) => {
                       setData({ ...data, requirements: e.target.value });
@@ -360,6 +433,7 @@ function Job(jobModel) {
                   <Form.Label>İş barədə məlumat</Form.Label>
                   <textarea
                     id="description"
+                    disabled={mainCardEnabled}
                     style={{ height: "100px" }}
                     onChange={(e) => {
                       setData({ ...data, description: e.target.value });
@@ -373,6 +447,7 @@ function Job(jobModel) {
                   <Form.Label>Şirkət adı</Form.Label>
                   <Form.Control
                     type="text"
+                    disabled={mainCardEnabled}
                     placeholder="Şirkət adı"
                     onChange={(e) => {
                       setData({ ...data, companyName: e.target.value });
@@ -383,6 +458,7 @@ function Job(jobModel) {
                 {toggleSubmit ? (
                   <Button
                     variant="primary"
+                    disabled={mainCardEnabled}
                     onClick={(e) => {
                       _onSave(e);
                     }}
