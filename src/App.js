@@ -55,7 +55,7 @@ function App(props) {
   }
 
   return (
-    <div className="pushable">
+    <div className="pushable" >
       <Header></Header>
       <div class="pusher">
         <Fragment>

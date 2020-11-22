@@ -8,6 +8,8 @@ import Button from "../Components/Button";
 //components
 import JobsList from "../Pages/Job/JobsList";
 import { Link } from "react-router-dom";
+import { Search } from "semantic-ui-react";
+import SearchFiltered from "./SearchFiltered";
 
 function Header() {
   const dispatch = useDispatch();
@@ -41,12 +43,21 @@ function Header() {
         <Link class="item" to="/createJob">
           Share Job
         </Link>
+        <SearchFiltered></SearchFiltered>
+
         {/* <a class="item">Friends</a> */}
         <div class="right menu">
+
           <a class="item" onClick={_onClick}>
             Logout
           </a>
           <a class="item">Help</a>
+          {/* <div class="item">
+            <div class="ui icon input">
+              <input type="text" placeholder="Search..."></input>
+              <i class="search icon"></i>
+            </div>
+          </div> */}
         </div>
       </div>
     </div>

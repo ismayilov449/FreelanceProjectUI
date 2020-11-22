@@ -49,11 +49,9 @@ function JobDetail(jobModel) {
         style={{ boxShadow: "0px 0px 5px 0px rgba(189,189,189,1)" }}
       >
         <div class="column">
-          <div class="ui big label">
+          <div class="ui huge label" style={{ color:"red"}}>
             {job.position} {job.category}
           </div>
-          <br />
-          <br />
           <div class="ui large label">
             <p style={{ textDecoration: "underline" }}> {job.username}</p>
           </div>

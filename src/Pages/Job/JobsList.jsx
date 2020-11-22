@@ -55,6 +55,7 @@ function JobsList() {
         margin: "20px 200px 20px 200px",
       }}
     >
+      
       {data.map((job) => (
         <Job value={job.id} job={job}></Job>
       ))}
