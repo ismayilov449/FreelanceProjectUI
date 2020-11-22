@@ -8,6 +8,7 @@ import Button from "../../Components/Button";
 //components
 import JobsList from "../Job/JobsList";
 import { Link } from "react-router-dom";
+import SearchFiltered from "../../Components/SearchFiltered";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -32,7 +33,12 @@ function HomePage() {
       //setLoading(false);
     }
   }
-  return <JobsList></JobsList>;
+  return (
+    <div >
+
+      <JobsList></JobsList>
+    </div>
+  );
 }
 
 const Container = styled.div`
