@@ -22,7 +22,7 @@ function JobsList({ jobs, operation, ...props }) {
   useEffect(() => {
     console.log(jobs);
 
-    if (jobs.length == 0 && operation != "search") {
+    if (operation != "search") {
       getJobs(rowCount, currentPage);
     } else {
       setData(jobs);
