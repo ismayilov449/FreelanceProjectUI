@@ -27,6 +27,7 @@ function App(props) {
   const [errors, setErrors] = useState({});
   const [jobs, setJobs] = useState([]);
   const [operation, setOperation] = useState("all");
+  const [filters, setFilters] = useState({});
 
   if (history.location.pathname === "/") {
     history.push("/home");
@@ -64,9 +65,17 @@ function App(props) {
     setOperation(changedOperation);
   };
 
+  const setSelectedFilters = (givenFilters) => {
+    setFilters(givenFilters);
+  };
+
   return (
     <div className="pushable">
-      <Header setjobs={setMainJobs} setOperation={setMainOperation}></Header>
+      <Header
+        setjobs={setMainJobs}
+        setOperation={setMainOperation}
+        setFilters={setFilters}
+      ></Header>
       <div class="pusher">
         <Fragment>
           <Switch>
@@ -77,6 +86,7 @@ function App(props) {
                 <HomePage
                   jobs={jobs}
                   operation={operation}
+                  filters={filters}
                   {...props}
                 ></HomePage>
               )}

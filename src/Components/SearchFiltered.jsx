@@ -13,7 +13,7 @@ import api from "../Redux/api";
 import SALARIES from "../Redux/Constants/Salaries";
 import EXPERIENCE from "../Redux/Constants/Experience";
 
-function SearchFiltered({ setjobs, setOperation, ...props }) {
+function SearchFiltered({ setjobs, setOperation, setFilters, ...props }) {
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [education, setEducation] = useState([]);
@@ -24,6 +24,8 @@ function SearchFiltered({ setjobs, setOperation, ...props }) {
     city: "",
     education: "",
     salary: 0,
+    offset: 0,
+    limit: 100,
   });
   const [mainList, setList] = useState({});
 
@@ -101,17 +103,23 @@ function SearchFiltered({ setjobs, setOperation, ...props }) {
 
   async function _search(e) {
     e.preventDefault();
-    setData({ ...data, offset: +"0" });
-    setData({ ...data, limit: +"100" });
     const filteredJobs = await api.jobs.fullSearch(data);
     setjobs(filteredJobs.data.list);
     setOperation("search");
+    setFilters(data);
   }
 
   async function _reset(e) {
     e.preventDefault();
 
-    setData({ category: "", city: "", education: "", salary: 0 });
+    setData({
+      category: "",
+      city: "",
+      education: "",
+      salary: 0,
+      offset: 0,
+      limit: 100,
+    });
     setOperation("all");
   }
 
