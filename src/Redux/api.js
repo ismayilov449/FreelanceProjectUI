@@ -119,4 +119,13 @@ export default {
       ).then((res) => res.data);
     },
   },
+  subscription:{
+    subscribejob:async (requestData) => {
+      var data={token:getToken(),requestData:requestData};
+      console.log(data);
+
+      return await AxiosWithInterceptor.post(`/api/Subscription/SubscribeJob`, data, options())
+      .then((res) => res.data);
+    }
+  }
 };

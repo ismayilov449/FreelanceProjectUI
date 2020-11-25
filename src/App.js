@@ -28,7 +28,7 @@ function App(props) {
   const [jobs, setJobs] = useState([]);
   const [operation, setOperation] = useState("all");
   const [filters, setFilters] = useState({});
-
+  const [subscribedFilters, setSubscribedFilters]=useState({});
   if (history.location.pathname === "/") {
     history.push("/home");
   }
@@ -75,6 +75,7 @@ function App(props) {
         setjobs={setMainJobs}
         setOperation={setMainOperation}
         setFilters={setFilters}
+        setSubscribedFilters={setSubscribedFilters}
       ></Header>
       <div class="pusher">
         <Fragment>
@@ -87,6 +88,7 @@ function App(props) {
                   jobs={jobs}
                   operation={operation}
                   filters={filters}
+                  subscribedFilters={subscribedFilters}
                   {...props}
                 ></HomePage>
               )}

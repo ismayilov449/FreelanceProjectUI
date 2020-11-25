@@ -13,7 +13,7 @@ import api from "../Redux/api";
 import SALARIES from "../Redux/Constants/Salaries";
 import EXPERIENCE from "../Redux/Constants/Experience";
 
-function SearchFiltered({ setjobs, setOperation, setFilters, ...props }) {
+function SearchFiltered({ setjobs, setOperation, setFilters, setSubscribedFilters, ...props }) {
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [education, setEducation] = useState([]);
@@ -27,6 +27,13 @@ function SearchFiltered({ setjobs, setOperation, setFilters, ...props }) {
     offset: 0,
     limit: 100,
   });
+  const [subscribedFilter, setSubscribedFilter]=useState({
+    categoryId: "",
+    cityId: "",
+    educationId: "",
+    salary: 0,
+    userId: ""
+  })
   const [mainList, setList] = useState({});
 
   useEffect(() => {
@@ -107,6 +114,17 @@ function SearchFiltered({ setjobs, setOperation, setFilters, ...props }) {
     setjobs(filteredJobs.data.list);
     setOperation("search");
     setFilters(data);
+
+
+    console.log(categories.find((i)=>i.value==data.category).key)
+
+    setSubscribedFilter({ ...subscribedFilter,  categoryId: categories.find((i)=>i.value==data.category).key});
+     setSubscribedFilter({ ...subscribedFilter,  cityId: cities.find((i)=>i.value==data.city).key});
+     setSubscribedFilter({ ...subscribedFilter,  educationId: education.find((i)=>i.value==data.education).key});
+     setSubscribedFilter({ ...subscribedFilter,  salary: salaries.find((i)=>i.value==data.salary).key});
+
+    console.log(subscribedFilter);
+    setSubscribedFilters(subscribedFilter);
   }
 
   async function _reset(e) {
