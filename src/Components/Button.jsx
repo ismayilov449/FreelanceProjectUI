@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function Button({ text, color, bgColor, border, icon, ...props }) {
+function CustomButton({ text, color, bgColor, border, icon, ...props }) {
   return (
     <Container
       type="button"
@@ -16,7 +16,7 @@ function Button({ text, color, bgColor, border, icon, ...props }) {
   );
 }
 
-Button.defaultProps = {
+CustomButton.defaultProps = {
   text: "",
   color: "silver",
   bgColor: "black",
@@ -24,7 +24,7 @@ Button.defaultProps = {
   icon: null,
 };
 
-export default Button;
+export default CustomButton;
 
 const Container = styled.button`
   color: ${(props) => props.color};
