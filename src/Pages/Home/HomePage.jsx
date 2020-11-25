@@ -3,13 +3,12 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import validator from "validator";
 import { signOut } from "../../Redux/Slicers/user.slice";
-import Button from "../../Components/Button";
 //actions
 //components
 import JobsList from "../Job/JobsList";
 import { Link } from "react-router-dom";
 import SearchFiltered from "../../Components/SearchFiltered";
-import { Icon, Label,Segment } from "semantic-ui-react";
+import { Icon, Label, Segment, Button } from "semantic-ui-react";
 
 function HomePage({ jobs, operation, filters, ...props }) {
   const dispatch = useDispatch();
@@ -18,7 +17,12 @@ function HomePage({ jobs, operation, filters, ...props }) {
   useEffect(() => {
     console.log("homePage", filters);
   }, []);
-
+  function IsNullOrWhiteSpace(value) {
+    if (value == null) return true;
+    if (value == undefined) return;
+    if(value.toString()=="0") return true;
+    return value.toString().replace(/\s/g, "").length == 0;
+  }
   async function _onClick(e) {
     // setLoading(true);
     e.preventDefault();
@@ -40,32 +44,56 @@ function HomePage({ jobs, operation, filters, ...props }) {
   }
   return (
     <div>
-  {operation == "search" ? (
-    <Segment style={{
-      margin: "0px 200px 0px 200px",
-    }}>
-        <div>
-          
-          <Label as="a" color="red" image>
-            <Icon name="search" />
-            Category: {filters.category}
-          </Label>
-          <Label as="a" color="red" image>
-            City: {filters.city}
-          </Label>
-          <Label as="a" color="red" image>
-            Education: {filters.education}
-          </Label>
-          <Label as="a" color="red" image>
-            Salary:{filters.salary}
-          </Label>
-        </div>
+      {operation == "search" ? (
+        <Segment
+          style={{
+            margin: "0px 200px 0px 200px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              {!IsNullOrWhiteSpace(filters.category) ? (
+                <Label size="large" as="a" color="red" image>
+                  <Icon name="search" />
+                  Category: {filters.category}
+                </Label>
+              ) : (
+                ""
+              )}
+              {!IsNullOrWhiteSpace(filters.city) ? (
+                <Label size="large" as="a" color="red" image>
+                  City: {filters.city}
+                </Label>
+              ) : (
+                ""
+              )}
+              {!IsNullOrWhiteSpace(filters.education) ? (
+                <Label size="large" as="a" color="red" image>
+                  Education: {filters.education}
+                </Label>
+              ) : (
+                ""
+              )}
+              {!IsNullOrWhiteSpace(filters.salary) ? (
+                <Label size="large" as="a" color="red" image>
+                  Salary:{filters.salary}
+                </Label>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <Button secondary>Subscribe</Button>
+          </div>
         </Segment>
       ) : (
-       ""
+        ""
       )}
-
-      
 
       <JobsList jobs={jobs} operation={operation}></JobsList>
     </div>
