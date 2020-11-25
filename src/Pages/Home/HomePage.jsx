@@ -19,7 +19,7 @@ function HomePage({ jobs, operation, filters, ...props }) {
   }, []);
   function IsNullOrWhiteSpace(value) {
     if (value == null) return true;
-    if (value == undefined) return;
+    if (value == undefined) return true;
     if(value.toString()=="0") return true;
     return value.toString().replace(/\s/g, "").length == 0;
   }

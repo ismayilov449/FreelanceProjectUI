@@ -54,7 +54,7 @@ function Job(jobModel) {
 
   function IsNullOrWhiteSpace(value) {
     if (value == null) return true;
-    if (value == undefined) return;
+    if (value == undefined) return true;
     return value.replace(/\s/g, "").length == 0;
   }
 
