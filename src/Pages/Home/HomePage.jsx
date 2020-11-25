@@ -10,11 +10,13 @@ import JobsList from "../Job/JobsList";
 import { Link } from "react-router-dom";
 import SearchFiltered from "../../Components/SearchFiltered";
 
-function HomePage({ jobs, operation, ...props }) {
+function HomePage({ jobs, operation, filters, ...props }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("homePage", filters);
+  }, []);
 
   async function _onClick(e) {
     // setLoading(true);
@@ -37,6 +39,20 @@ function HomePage({ jobs, operation, ...props }) {
   }
   return (
     <div>
+      {operation == "search" ? (
+        <span>
+          <div>
+            <p>Results : </p>
+            <p>Kateqoriya : {filters.category}</p>
+            <p>Şəhər : {filters.city}</p>
+            <p>Təhsil : {filters.education}</p>
+            <p>Maaş : {filters.salary}</p>
+          </div>
+        </span>
+      ) : (
+        ""
+      )}
+
       <JobsList jobs={jobs} operation={operation}></JobsList>
     </div>
   );

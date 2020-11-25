@@ -13,18 +13,23 @@ import api from "../Redux/api";
 import SALARIES from "../Redux/Constants/Salaries";
 import EXPERIENCE from "../Redux/Constants/Experience";
 
-function SearchFiltered({ setjobs, setOperation, ...props }) {
+function SearchFiltered({ setjobs, setOperation, setFilters, ...props }) {
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [education, setEducation] = useState([]);
   const [experience, setExperiende] = useState([]);
   const [salaries, setSalaries] = useState([]);
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    category: "",
+    city: "",
+    education: "",
+    salary: 0,
+    offset: 0,
+    limit: 100,
+  });
   const [mainList, setList] = useState({});
 
   useEffect(() => {
-    setData({ ...data, offset: +"0" });
-    setData({ ...data, limit: +"100" });
     _getCities();
     _getCategories();
     _getEducation();
@@ -98,10 +103,24 @@ function SearchFiltered({ setjobs, setOperation, ...props }) {
 
   async function _search(e) {
     e.preventDefault();
-    console.log(data);
     const filteredJobs = await api.jobs.fullSearch(data);
     setjobs(filteredJobs.data.list);
     setOperation("search");
+    setFilters(data);
+  }
+
+  async function _reset(e) {
+    e.preventDefault();
+
+    setData({
+      category: "",
+      city: "",
+      education: "",
+      salary: 0,
+      offset: 0,
+      limit: 100,
+    });
+    setOperation("all");
   }
 
   return (
@@ -115,10 +134,10 @@ function SearchFiltered({ setjobs, setOperation, ...props }) {
               selection
               name="categoryId"
               placeholder="Category"
+              value={data.category}
               options={categories}
               onChange={(e, { name, value }) => {
                 setData({ ...data, category: value });
-                console.log(data);
               }}
             />
             <Dropdown
@@ -126,6 +145,7 @@ function SearchFiltered({ setjobs, setOperation, ...props }) {
               placeholder="City"
               selection
               name="cityId"
+              value={data.city}
               options={cities}
               onChange={(e, { name, value }) => {
                 setData({ ...data, city: value });
@@ -151,31 +171,42 @@ function SearchFiltered({ setjobs, setOperation, ...props }) {
               placeholder="Education"
               selection
               name="educationId"
+              value={data.education}
               options={education}
               onChange={(e, { name, value }) => {
                 setData({ ...data, education: value });
-                console.log(data);
               }}
             />
             <Dropdown
               placeholder="Salary"
               selection
               name="salary"
+              value={data.salary}
               options={salaries}
               onChange={(e, { name, value }) => {
                 setData({ ...data, salary: value });
-                console.log(data);
               }}
             />
           </div>
           <Dropdown.Divider />
           <br></br>
-          <div>
-            <Button color="red" fluid onClick={(e) => _search(e)}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Button
+              color="orange"
+              fluid
+              style={{ marginRight: "10px" }}
+              onClick={(e) => _reset(e)}
+            >
+              Reset
+            </Button>
+            <Button
+              color="red"
+              style={{ marginRight: "10px" }}
+              fluid
+              onClick={(e) => _search(e)}
+            >
               Search
             </Button>
-
-            <br></br>
           </div>
           <Dropdown.Divider />
           <br></br>

@@ -10,9 +10,7 @@ const initialState = "";
 
 export const signIn = createAsyncThunk("user/signIn", async (data) => {
   try {
-    console.log("data", data);
     const blob = await api.auth.signin(data).then((res) => res.data);
-    console.log("blob", blob);
     setToken(blob.tokenString);
     return blob.tokenString;
   } catch (err) {

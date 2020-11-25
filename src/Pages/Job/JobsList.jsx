@@ -20,9 +20,7 @@ function JobsList({ jobs, operation, ...props }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    console.log(jobs);
-
-    if (jobs.length == 0 && operation != "search") {
+    if (operation != "search") {
       getJobs(rowCount, currentPage);
     } else {
       setData(jobs);
@@ -49,8 +47,6 @@ function JobsList({ jobs, operation, ...props }) {
       const { list, totalCount } = await api.jobs.getall(offset, rc.value);
       setTotalCount(totalCount);
       setData(list);
-      console.log(list);
-      //setStatusCode(true);
     } catch (err) {
       console.log(err);
     }
