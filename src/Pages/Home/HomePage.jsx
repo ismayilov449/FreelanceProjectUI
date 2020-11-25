@@ -9,6 +9,7 @@ import Button from "../../Components/Button";
 import JobsList from "../Job/JobsList";
 import { Link } from "react-router-dom";
 import SearchFiltered from "../../Components/SearchFiltered";
+import { Icon, Label,Segment } from "semantic-ui-react";
 
 function HomePage({ jobs, operation, filters, ...props }) {
   const dispatch = useDispatch();
@@ -39,19 +40,32 @@ function HomePage({ jobs, operation, filters, ...props }) {
   }
   return (
     <div>
-      {operation == "search" ? (
-        <span>
-          <div>
-            <p>Results : </p>
-            <p>Kateqoriya : {filters.category}</p>
-            <p>Şəhər : {filters.city}</p>
-            <p>Təhsil : {filters.education}</p>
-            <p>Maaş : {filters.salary}</p>
-          </div>
-        </span>
+  {operation == "search" ? (
+    <Segment style={{
+      margin: "0px 200px 0px 200px",
+    }}>
+        <div>
+          
+          <Label as="a" color="red" image>
+            <Icon name="search" />
+            Category: {filters.category}
+          </Label>
+          <Label as="a" color="red" image>
+            City: {filters.city}
+          </Label>
+          <Label as="a" color="red" image>
+            Education: {filters.education}
+          </Label>
+          <Label as="a" color="red" image>
+            Salary:{filters.salary}
+          </Label>
+        </div>
+        </Segment>
       ) : (
-        ""
+       ""
       )}
+
+      
 
       <JobsList jobs={jobs} operation={operation}></JobsList>
     </div>
