@@ -13,7 +13,13 @@ import api from "../Redux/api";
 import SALARIES from "../Redux/Constants/Salaries";
 import EXPERIENCE from "../Redux/Constants/Experience";
 
-function SearchFiltered({ setjobs, setOperation, setFilters, setSubscribedFilters, ...props }) {
+function SearchFiltered({
+  setjobs,
+  setOperation,
+  setFilters,
+  setSubscribedFilters,
+  ...props
+}) {
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [education, setEducation] = useState([]);
@@ -27,13 +33,7 @@ function SearchFiltered({ setjobs, setOperation, setFilters, setSubscribedFilter
     offset: 0,
     limit: 100,
   });
-  const [subscribedFilter, setSubscribedFilter]=useState({
-    categoryId: "",
-    cityId: "",
-    educationId: "",
-    salary: 0,
-    userId: ""
-  })
+  const [subscribedFilter, setSubscribedFilter] = useState({});
   const [mainList, setList] = useState({});
 
   useEffect(() => {
@@ -110,25 +110,25 @@ function SearchFiltered({ setjobs, setOperation, setFilters, setSubscribedFilter
 
   async function _search(e) {
     e.preventDefault();
+
+    var item = {
+      categoryId: categories.find((i) => i.value == data.category).key,
+      cityId: cities.find((i) => i.value == data.city).key,
+      educationId: education.find((i) => i.value == data.education).key,
+      salary: salaries.find((i) => i.value == data.salary).key,
+    };
+
     const filteredJobs = await api.jobs.fullSearch(data);
     setjobs(filteredJobs.data.list);
     setOperation("search");
     setFilters(data);
-
-
-    console.log(categories.find((i)=>i.value==data.category).key)
-
-    setSubscribedFilter({ ...subscribedFilter,  categoryId: categories.find((i)=>i.value==data.category).key});
-     setSubscribedFilter({ ...subscribedFilter,  cityId: cities.find((i)=>i.value==data.city).key});
-     setSubscribedFilter({ ...subscribedFilter,  educationId: education.find((i)=>i.value==data.education).key});
-     setSubscribedFilter({ ...subscribedFilter,  salary: salaries.find((i)=>i.value==data.salary).key});
-
-    console.log(subscribedFilter);
-    setSubscribedFilters(subscribedFilter);
+    setSubscribedFilters(item);
   }
 
   async function _reset(e) {
     e.preventDefault();
+
+    console.log(subscribedFilter);
 
     setData({
       category: "",

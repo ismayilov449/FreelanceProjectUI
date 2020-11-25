@@ -11,7 +11,7 @@ import SearchFiltered from "../../Components/SearchFiltered";
 import { Icon, Label, Segment, Button } from "semantic-ui-react";
 import api from "../../Redux/api";
 
-function HomePage({ jobs, operation, filters,subscribedFilters, ...props }) {
+function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
 
@@ -21,14 +21,13 @@ function HomePage({ jobs, operation, filters,subscribedFilters, ...props }) {
   function IsNullOrWhiteSpace(value) {
     if (value == null) return true;
     if (value == undefined) return true;
-    if(value.toString()=="0") return true;
+    if (value.toString() == "0") return true;
     return value.toString().replace(/\s/g, "").length == 0;
   }
-  async function _subscribe(e){
+  async function _subscribe(e) {
     e.preventDefault();
 
-
-    await api.subscription.subscribejob([subscribedFilters]);
+    var response = await api.subscription.subscribejob([subscribedFilters]);
   }
   async function _onClick(e) {
     // setLoading(true);
@@ -95,7 +94,9 @@ function HomePage({ jobs, operation, filters,subscribedFilters, ...props }) {
               )}
             </div>
 
-            <Button onClick={_subscribe} secondary>Subscribe</Button>
+            <Button onClick={(e) => _subscribe(e)} secondary>
+              Subscribe
+            </Button>
           </div>
         </Segment>
       ) : (
