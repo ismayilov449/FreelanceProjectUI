@@ -9,19 +9,30 @@ import JobsList from "../Job/JobsList";
 import { Link } from "react-router-dom";
 import SearchFiltered from "../../Components/SearchFiltered";
 import { Icon, Label, Segment, Button } from "semantic-ui-react";
+import api from "../../Redux/api";
 
-function HomePage({ jobs, operation, filters, ...props }) {
+function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
+  const [subText, setSubText] = useState("Subscribe");
 
   useEffect(() => {
-    console.log("homePage", filters);
+    console.log("homePage", subscribedFilters);
   }, []);
   function IsNullOrWhiteSpace(value) {
     if (value == null) return true;
-    if (value == undefined) return;
-    if(value.toString()=="0") return true;
+    if (value == undefined) return true;
+    if (value.toString() == "0") return true;
     return value.toString().replace(/\s/g, "").length == 0;
+  }
+  async function _subscribe(e) {
+    e.preventDefault();
+    if (subText == "Subscribe") {
+      setSubText("Unsubscribe");
+      var response = await api.subscription.subscribejob([subscribedFilters]);
+    } else {
+      setSubText("Subscribe");
+    }
   }
   async function _onClick(e) {
     // setLoading(true);
@@ -88,7 +99,9 @@ function HomePage({ jobs, operation, filters, ...props }) {
               )}
             </div>
 
-            <Button secondary>Subscribe</Button>
+            <Button onClick={(e) => _subscribe(e)} secondary>
+              {subText}
+            </Button>
           </div>
         </Segment>
       ) : (

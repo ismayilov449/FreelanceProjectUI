@@ -11,10 +11,9 @@ import { Link } from "react-router-dom";
 import { Search } from "semantic-ui-react";
 import SearchFiltered from "./SearchFiltered";
 
-function Header({ setjobs, setOperation, setFilters, ...props }) {
+function Header({ setjobs, setOperation, setFilters,setSubscribedFilters, ...props }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
-
   async function _onClick(e) {
     // setLoading(true);
     e.preventDefault();
@@ -53,6 +52,7 @@ function Header({ setjobs, setOperation, setFilters, ...props }) {
           setOperation={setOperation}
           setjobs={setjobs}
           setFilters={setFilters}
+          setSubscribedFilters={setSubscribedFilters}
         ></SearchFiltered>
 
         {/* <a class="item">Friends</a> */}

@@ -119,4 +119,22 @@ export default {
       ).then((res) => res.data);
     },
   },
+  subscription: {
+    subscribejob: async (requestData) => {
+      var innerFilter = {
+        filters: requestData,
+      };
+
+      var data = {
+        token: getToken().toString(),
+        filter: innerFilter,
+      };
+
+      return await AxiosWithInterceptor.post(
+        `/api/Subscription/SubscribeJob`,
+        data,
+        options()
+      ).then((res) => res.data);
+    },
+  },
 };
