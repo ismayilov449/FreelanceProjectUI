@@ -14,6 +14,7 @@ import api from "../../Redux/api";
 function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
+  const [subText, setSubText] = useState("Subscribe");
 
   useEffect(() => {
     console.log("homePage", subscribedFilters);
@@ -26,8 +27,12 @@ function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
   }
   async function _subscribe(e) {
     e.preventDefault();
-
-    var response = await api.subscription.subscribejob([subscribedFilters]);
+    if (subText == "Subscribe") {
+      setSubText("Unsubscribe");
+      var response = await api.subscription.subscribejob([subscribedFilters]);
+    } else {
+      setSubText("Subscribe");
+    }
   }
   async function _onClick(e) {
     // setLoading(true);
@@ -95,7 +100,7 @@ function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
             </div>
 
             <Button onClick={(e) => _subscribe(e)} secondary>
-              Subscribe
+              {subText}
             </Button>
           </div>
         </Segment>
