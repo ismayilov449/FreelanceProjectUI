@@ -129,13 +129,12 @@ export default {
         token: getToken().toString(),
         filter: innerFilter,
       };
-      console.log(data);
 
       return await AxiosWithInterceptor.post(
         `/api/Subscription/SubscribeJob`,
         data,
         options()
-      ).then((res) => console.log(res.data));
+      ).then((res) => res.data);
     },
   },
 };
