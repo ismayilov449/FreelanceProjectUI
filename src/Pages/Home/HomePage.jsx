@@ -15,6 +15,7 @@ function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [subText, setSubText] = useState("Subscribe");
+  const [subId, setSubId] = useState("");
 
   useEffect(() => {
     console.log("homePage", subscribedFilters);
@@ -30,7 +31,12 @@ function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
     if (subText == "Subscribe") {
       setSubText("Unsubscribe");
       var response = await api.subscription.subscribejob([subscribedFilters]);
+      console.log(response);
+      setSubId(response.toString());
     } else {
+      var response = await api.subscription.unSubscribeJob(subId.toString());
+      console.log(response);
+      setSubId(response.toString());
       setSubText("Subscribe");
     }
   }
