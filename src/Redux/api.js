@@ -136,5 +136,11 @@ export default {
         options()
       ).then((res) => res.data);
     },
+    unSubscribeJob: async (id) => {
+      return await AxiosWithInterceptor.delete(
+        `/api/Subscription?id=${id}`,
+        options()
+      ).then((res) => res.data);
+    },
   },
 };
