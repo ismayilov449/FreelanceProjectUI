@@ -3,15 +3,26 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import validator from "validator";
 import { signOut } from "../Redux/Slicers/user.slice";
-import Button from "../Components/Button";
-//actions
-//components
+
 import JobsList from "../Pages/Job/JobsList";
 import { Link } from "react-router-dom";
-import { Search } from "semantic-ui-react";
 import SearchFiltered from "./SearchFiltered";
-
-function Header({ setjobs, setOperation, setFilters,setSubscribedFilters, ...props }) {
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  Input,
+  Form,
+  Button,
+  Icon
+} from "semantic-ui-react";
+function Header({
+  setjobs,
+  setOperation,
+  setFilters,
+  setSubscribedFilters,
+  ...props
+}) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   async function _onClick(e) {
@@ -56,11 +67,22 @@ function Header({ setjobs, setOperation, setFilters,setSubscribedFilters, ...pro
         ></SearchFiltered>
 
         {/* <a class="item">Friends</a> */}
-        <div class="right menu">
-          <a class="item" onClick={_onClick}>
-            Logout
-          </a>
-          <a class="item">Help</a>
+        <div class="right menu" >
+          
+        <Button color='black' icon style={{ marginTop:"-4px" ,
+      marginRight:"15px"}}>
+    <Icon name='send' />
+  </Button>
+          <Dropdown text="UserName" style={{ marginTop:"5px" }}>
+            <Dropdown.Menu>
+              <Dropdown.Item text="Profile" />
+              <Dropdown.Item text="Settings" d />
+              <Dropdown.Item text="LogOut"  />
+              <Dropdown.Divider />
+              <Dropdown.Item text="Help" />
+            </Dropdown.Menu>
+          </Dropdown>
+     
           {/* <div class="item">
             <div class="ui icon input">
               <input type="text" placeholder="Search..."></input>
