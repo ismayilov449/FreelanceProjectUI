@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { HubConnectionBuilder, HubConnection } from "@microsoft/signalr";
 
 import validator from "validator";
 import api from "../../Redux/api";
@@ -28,6 +29,9 @@ function Job(jobModel) {
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [education, setEducation] = useState([]);
+
+  const [connection, setConnection] = useState(null);
+  const [connectionStatus, setConnectionStatus] = useState("None");
   const history = useHistory();
 
   useEffect(() => {
@@ -36,6 +40,41 @@ function Job(jobModel) {
     _getEducation();
     _getCurrentUser();
   }, {});
+
+  useEffect(() => {
+    const newConnection = new HubConnectionBuilder()
+      .withUrl("http://localhost:6001/hubs/operation")
+      .withAutomaticReconnect()
+      .build();
+
+    setConnection(newConnection);
+  }, []);
+
+  useEffect(() => {
+    if (connection) {
+      setConnectionStatus(connection.connectionState);
+      connection
+        .start()
+        .then((result) => {
+          console.log("Connected!");
+          setConnectionStatus(connection.connectionState);
+        })
+        .catch((e) => console.log("Connection failed: ", e));
+    }
+  }, [connection]);
+
+  const sendNotification = async (e, job) => {
+    e.preventDefault();
+    if (connection.connectionStarted) {
+      try {
+        await connection.invoke("SendNotification", job).then(() => {});
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      alert("No connection to server yet.");
+    }
+  };
 
   function _confirm(e) {
     e.preventDefault();
@@ -82,21 +121,23 @@ function Job(jobModel) {
     e.preventDefault();
 
     if (
-      !IsNullOrWhiteSpace(data.categoryId) &&
-      !IsNullOrWhiteSpace(data.position) &&
-      !IsNullOrWhiteSpace(data.cityId) &&
-      !IsNullOrWhiteSpace(data.salaryMin) &&
-      !IsNullOrWhiteSpace(data.salaryMax) &&
-      !IsNullOrWhiteSpace(data.ageMin) &&
-      !IsNullOrWhiteSpace(data.ageMax) &&
-      !IsNullOrWhiteSpace(data.educationId) &&
-      !IsNullOrWhiteSpace(data.experience) &&
-      !IsNullOrWhiteSpace(data.requirements) &&
-      !IsNullOrWhiteSpace(data.description) &&
-      !IsNullOrWhiteSpace(data.companyName)
+      !IsNullOrWhiteSpace(data.categoryId)
+      // &&
+      // !IsNullOrWhiteSpace(data.position) &&
+      // !IsNullOrWhiteSpace(data.cityId) &&
+      // !IsNullOrWhiteSpace(data.salaryMin) &&
+      // !IsNullOrWhiteSpace(data.salaryMax) &&
+      // !IsNullOrWhiteSpace(data.ageMin) &&
+      // !IsNullOrWhiteSpace(data.ageMax) &&
+      // !IsNullOrWhiteSpace(data.educationId) &&
+      // !IsNullOrWhiteSpace(data.experience) &&
+      // !IsNullOrWhiteSpace(data.requirements) &&
+      // !IsNullOrWhiteSpace(data.description) &&
+      // !IsNullOrWhiteSpace(data.companyName)
     ) {
-      await api.jobs.post(data);
+      //await api.jobs.post(data);
       history.push("/home");
+      sendNotification(e, data);
     } else {
       setMainCardColor("#ff2626");
     }
