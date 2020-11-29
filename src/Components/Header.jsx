@@ -17,6 +17,8 @@ function Header({
   const [errors, setErrors] = useState({});
   const [connection, setConnection] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState("None");
+  const [notifications, setNotifications] = useState([]);
+  const [tmpNotification, setTmpNotification] = useState({});
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
@@ -44,21 +46,15 @@ function Header({
     }
   }, [connection]);
 
-  const sendNotification = async (e) => {
-    e.preventDefault();
-    if (connection.connectionStarted) {
-      try {
-        await connection.invoke("SendNotification", "aueee").then(() => {});
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      alert("No connection to server yet.");
-    }
-  };
-
   const ReceiveNotification = (data) => {
     console.log(data);
+    var tmpData = {
+      key: data.id,
+      text: data.companyName,
+      value: data.id,
+    };
+    notifications.push(tmpData);
+    setNotifications(notifications);
   };
 
   async function _onClick(e) {
@@ -100,13 +96,24 @@ function Header({
         ></SearchFiltered>
 
         <div class="right menu">
-          <Button
+          {/* <Button
             color="black"
             icon
             style={{ marginTop: "-4px", marginRight: "15px" }}
           >
-            <Icon name="send" onClick={(e) => sendNotification(e)} />
-          </Button>
+            <Icon name="send" />
+          </Button> */}
+          <Dropdown
+            style={{ marginRight: "10px" }}
+            selection
+            name="notificationId"
+            placeholder="Notification"
+            value={tmpNotification}
+            options={notifications}
+            onChange={(e, { name, value }) => {
+              setTmpNotification({ tmpNotification: value });
+            }}
+          />
           <Dropdown text="UserName" style={{ marginTop: "5px" }}>
             <Dropdown.Menu>
               <Dropdown.Item text="Profile" />
