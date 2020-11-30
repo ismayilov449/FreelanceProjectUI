@@ -5,7 +5,17 @@ import { useDispatch } from "react-redux";
 import { signOut } from "../Redux/Slicers/user.slice";
 import { Link } from "react-router-dom";
 import SearchFiltered from "./SearchFiltered";
-import { Dropdown, Button, Icon } from "semantic-ui-react";
+import {
+  Dropdown,
+  Button,
+  Icon,
+  Menu,
+  Label,
+  MenuItem,
+  List,
+} from "semantic-ui-react";
+
+import { Badge, OverlayTrigger, Tooltip, ListGroup } from "react-bootstrap";
 function Header({
   setjobs,
   setOperation,
@@ -19,6 +29,8 @@ function Header({
   const [connectionStatus, setConnectionStatus] = useState("None");
   const [notifications, setNotifications] = useState([]);
   const [tmpNotification, setTmpNotification] = useState({});
+  const [showNotification, setShowNotifications] = useState(false);
+  const [notCounter, setNotCounter] = useState(0);
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
@@ -40,6 +52,7 @@ function Header({
 
           connection.on("ReceiveNotification", (response) => {
             ReceiveNotification(response);
+            setNotCounter(notifications.length);
           });
         })
         .catch((e) => console.log("Connection failed: ", e));
@@ -47,7 +60,6 @@ function Header({
   }, [connection]);
 
   const ReceiveNotification = (data) => {
-    console.log(data);
     var tmpData = {
       key: data.id,
       text: data.companyName,
@@ -103,17 +115,38 @@ function Header({
           >
             <Icon name="send" />
           </Button> */}
-          <Dropdown
-            style={{ marginRight: "10px" }}
-            selection
-            name="notificationId"
-            placeholder="Notification"
-            value={tmpNotification}
-            options={notifications}
-            onChange={(e, { name, value }) => {
-              setTmpNotification({ tmpNotification: value });
-            }}
-          />
+
+          <OverlayTrigger
+            placement="bottom"
+            show={showNotification}
+            overlay={
+              <ListGroup>
+                {notifications.length != 0 ? (
+                  notifications.map((item) => (
+                    <ListGroup.Item action>{item.text}</ListGroup.Item>
+                  ))
+                ) : (
+                  <ListGroup.Item disabled>No Result</ListGroup.Item>
+                )}
+              </ListGroup>
+            }
+          >
+            <Menu.Item
+              as="a"
+              style={{
+                border: "1px #a5a5a5 solid",
+                borderRadius: "5px",
+                marginRight: "15px",
+              }}
+              onClick={() => setShowNotifications(!showNotification)}
+            >
+              <Icon name="bell" /> Notifications
+              <Label color="red" size="mini" left floating>
+                {notCounter}
+              </Label>
+            </Menu.Item>
+          </OverlayTrigger>
+
           <Dropdown text="UserName" style={{ marginTop: "5px" }}>
             <Dropdown.Menu>
               <Dropdown.Item text="Profile" />
@@ -123,7 +156,6 @@ function Header({
               <Dropdown.Item text="Help" />
             </Dropdown.Menu>
           </Dropdown>
-
           {/* <div class="item">
             <div class="ui icon input">
               <input type="text" placeholder="Search..."></input>

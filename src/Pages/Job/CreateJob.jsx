@@ -121,23 +121,21 @@ function Job(jobModel) {
     e.preventDefault();
 
     if (
-      !IsNullOrWhiteSpace(data.categoryId)
-      // &&
-      // !IsNullOrWhiteSpace(data.position) &&
-      // !IsNullOrWhiteSpace(data.cityId) &&
-      // !IsNullOrWhiteSpace(data.salaryMin) &&
-      // !IsNullOrWhiteSpace(data.salaryMax) &&
-      // !IsNullOrWhiteSpace(data.ageMin) &&
-      // !IsNullOrWhiteSpace(data.ageMax) &&
-      // !IsNullOrWhiteSpace(data.educationId) &&
-      // !IsNullOrWhiteSpace(data.experience) &&
-      // !IsNullOrWhiteSpace(data.requirements) &&
-      // !IsNullOrWhiteSpace(data.description) &&
-      // !IsNullOrWhiteSpace(data.companyName)
+      !IsNullOrWhiteSpace(data.categoryId) &&
+      !IsNullOrWhiteSpace(data.position) &&
+      !IsNullOrWhiteSpace(data.cityId) &&
+      !IsNullOrWhiteSpace(data.salaryMin) &&
+      !IsNullOrWhiteSpace(data.salaryMax) &&
+      !IsNullOrWhiteSpace(data.ageMin) &&
+      !IsNullOrWhiteSpace(data.ageMax) &&
+      !IsNullOrWhiteSpace(data.educationId) &&
+      !IsNullOrWhiteSpace(data.experience) &&
+      !IsNullOrWhiteSpace(data.requirements) &&
+      !IsNullOrWhiteSpace(data.description) &&
+      !IsNullOrWhiteSpace(data.companyName)
     ) {
-      //await api.jobs.post(data);
+      await api.jobs.post(data);
       history.push("/home");
-      sendNotification(e, data);
     } else {
       setMainCardColor("#ff2626");
     }
