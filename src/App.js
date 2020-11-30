@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import api from "./Redux/api";
 //actions
 import { signOut } from "../src/Redux/Slicers/user.slice";
+import ProfilePage from "./Pages/Profile/ProfilePage";
 
 function App(props) {
   const history = useHistory();
@@ -96,6 +97,8 @@ function App(props) {
             {/* Job */}
             <WithAuth exact path="/details" component={JobDetail} />
             <WithAuth exact path="/createJob" component={CreateJob} />
+            <WithAuth exact path="/profile" component={ProfilePage} />
+
             <Route exact path="/404" component={NoAccessPage} />
             <Route exact path="*" component={NotFoundPage} />
           </Switch>

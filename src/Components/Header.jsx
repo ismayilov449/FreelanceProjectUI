@@ -149,7 +149,8 @@ function Header({
 
           <Dropdown text="UserName" style={{ marginTop: "5px" }}>
             <Dropdown.Menu>
-              <Dropdown.Item text="Profile" />
+              <Link to="/profile"></Link>
+              <Dropdown.Item text="Profile"  />
               <Dropdown.Item text="Settings" d />
               <Dropdown.Item text="LogOut" onClick={(e) => _onClick(e)} />
               <Dropdown.Divider />
