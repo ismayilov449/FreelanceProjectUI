@@ -67,7 +67,7 @@ function Job(jobModel) {
     e.preventDefault();
     if (connection.connectionStarted) {
       try {
-        await connection.invoke("SendNotification", job).then(() => {});
+        await connection.invoke("RefreshNotification", job, "").then(() => {});
       } catch (e) {
         console.log(e);
       }
@@ -121,18 +121,19 @@ function Job(jobModel) {
     e.preventDefault();
 
     if (
-      !IsNullOrWhiteSpace(data.categoryId) &&
-      !IsNullOrWhiteSpace(data.position) &&
-      !IsNullOrWhiteSpace(data.cityId) &&
-      !IsNullOrWhiteSpace(data.salaryMin) &&
-      !IsNullOrWhiteSpace(data.salaryMax) &&
-      !IsNullOrWhiteSpace(data.ageMin) &&
-      !IsNullOrWhiteSpace(data.ageMax) &&
-      !IsNullOrWhiteSpace(data.educationId) &&
-      !IsNullOrWhiteSpace(data.experience) &&
-      !IsNullOrWhiteSpace(data.requirements) &&
-      !IsNullOrWhiteSpace(data.description) &&
-      !IsNullOrWhiteSpace(data.companyName)
+      !IsNullOrWhiteSpace(data.categoryId)
+      // &&
+      // !IsNullOrWhiteSpace(data.position) &&
+      // !IsNullOrWhiteSpace(data.cityId) &&
+      // !IsNullOrWhiteSpace(data.salaryMin) &&
+      // !IsNullOrWhiteSpace(data.salaryMax) &&
+      // !IsNullOrWhiteSpace(data.ageMin) &&
+      // !IsNullOrWhiteSpace(data.ageMax) &&
+      // !IsNullOrWhiteSpace(data.educationId) &&
+      // !IsNullOrWhiteSpace(data.experience) &&
+      // !IsNullOrWhiteSpace(data.requirements) &&
+      // !IsNullOrWhiteSpace(data.description) &&
+      // !IsNullOrWhiteSpace(data.companyName)
     ) {
       await api.jobs.post(data);
       history.push("/home");
