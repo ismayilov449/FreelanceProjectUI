@@ -78,7 +78,10 @@ function Job(jobModel) {
 
   function _confirm(e) {
     e.preventDefault();
-    if (!IsNullOrWhiteSpace(data.email) && !IsNullOrWhiteSpace(data.phone)) {
+    if (
+      !IsNullOrWhiteSpace(data.email) &&
+      !IsNullOrWhiteSpace(data.phoneNumber)
+    ) {
       setOpacityMainCard(1);
       setOpacityCard(0.2);
       setToggleSubmit(true);
@@ -186,7 +189,7 @@ function Job(jobModel) {
                     placeholder="Phone"
                     disabled={cardEnabled}
                     onChange={(e) => {
-                      setData({ ...data, phone: e.target.value });
+                      setData({ ...data, phoneNumber: e.target.value });
                     }}
                   />
                 </Form.Group>
