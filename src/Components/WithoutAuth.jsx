@@ -8,7 +8,7 @@ function WithoutAuth({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        !token ? <Component {...props} /> : <Redirect to="/home" />
+        <Component {...props} /> 
       }
     />
   );

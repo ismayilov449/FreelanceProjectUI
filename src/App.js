@@ -80,7 +80,7 @@ function App(props) {
       <div class="pusher">
         <Fragment>
           <Switch>
-            <WithAuth
+            <WithoutAuth
               exact
               path="/home"
               component={(props) => (
@@ -94,8 +94,8 @@ function App(props) {
               )}
             />
             {/* Job */}
-            <WithAuth exact path="/details" component={JobDetail} />
-            <WithAuth exact path="/createJob" component={CreateJob} />
+            <WithoutAuth exact path="/details" component={JobDetail} />
+            <WithoutAuth exact path="/createJob" component={CreateJob} />
             <Route exact path="/404" component={NoAccessPage} />
             <Route exact path="*" component={NotFoundPage} />
           </Switch>
