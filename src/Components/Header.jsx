@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { signOut } from "../Redux/Slicers/user.slice";
 import { Link } from "react-router-dom";
 import SearchFiltered from "./SearchFiltered";
+import api from "./../Redux/api";
 import {
   Dropdown,
   Button,
@@ -31,15 +32,22 @@ function Header({
   const [tmpNotification, setTmpNotification] = useState({});
   const [showNotification, setShowNotifications] = useState(false);
   const [notCounter, setNotCounter] = useState(0);
+  const [currUser, setCurrUser] = useState({});
 
   useEffect(() => {
-    const newConnection = new HubConnectionBuilder()
-      .withUrl("http://localhost:6001/hubs/operation")
-      .withAutomaticReconnect()
-      .build();
-
-    setConnection(newConnection);
+    GetCurrentUser();
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(currUser).length) {
+      const newConnection = new HubConnectionBuilder()
+        .withUrl(`http://localhost:6001/hubs/operation?userId=${currUser.id}`)
+        .withAutomaticReconnect()
+        .build();
+
+      setConnection(newConnection);
+    }
+  }, [currUser]);
 
   useEffect(() => {
     if (connection) {
@@ -68,6 +76,12 @@ function Header({
     notifications.push(tmpData);
     setNotifications(notifications);
   };
+
+  async function GetCurrentUser() {
+    const user = await api.auth.getCurrentUser().then((item) => item);
+    setCurrUser(user);
+    return user;
+  }
 
   async function _onClick(e) {
     e.preventDefault();
