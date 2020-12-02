@@ -38,7 +38,6 @@ function Job(jobModel) {
     _getCities();
     _getCategories();
     _getEducation();
-    _getCurrentUser();
   }, {});
 
   useEffect(() => {
@@ -115,10 +114,10 @@ function Job(jobModel) {
     setEducation(list);
   }
 
-  async function _getCurrentUser() {
-    const recruiter = await api.auth.getCurrentUser();
-    setData({ ...data, recruiterId: recruiter.id });
-  }
+  // async function _getCurrentUser() {
+  //   const recruiter = await api.auth.getCurrentUser();
+  //   setData({ ...data, recruiterId: recruiter.id });
+  // }
 
   async function _onSave(e) {
     e.preventDefault();

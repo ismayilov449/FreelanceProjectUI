@@ -9,6 +9,7 @@ import JobsList from "../Job/JobsList";
 import { Link } from "react-router-dom";
 import SearchFiltered from "../../Components/SearchFiltered";
 import { Icon, Label, Segment, Button } from "semantic-ui-react";
+import { getToken } from "../../Redux/Utils/auth.utils";
 import api from "../../Redux/api";
 
 function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
@@ -16,49 +17,37 @@ function HomePage({ jobs, operation, filters, subscribedFilters, ...props }) {
   const [errors, setErrors] = useState({});
   const [subText, setSubText] = useState("Subscribe");
   const [subId, setSubId] = useState("");
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    console.log("homePage", subscribedFilters);
-  }, []);
+    setToken(getToken());
+  }, [token]);
   function IsNullOrWhiteSpace(value) {
     if (value == null) return true;
     if (value == undefined) return true;
     if (value.toString() == "0") return true;
+    if (value == "") return true;
     return value.toString().replace(/\s/g, "").length == 0;
   }
   async function _subscribe(e) {
     e.preventDefault();
-    if (subText == "Subscribe") {
-      setSubText("Unsubscribe");
-      var response = await api.subscription.subscribejob([subscribedFilters]);
-      console.log(response);
-      setSubId(response.toString());
+    if (IsNullOrWhiteSpace(token)) {
+      console.log("Pls register");
     } else {
-      var response = await api.subscription.unSubscribeJob(subId.toString());
-      console.log(response);
-      setSubId(response.toString());
-      setSubText("Subscribe");
-    }
-  }
-  async function _onClick(e) {
-    // setLoading(true);
-    e.preventDefault();
-    setErrors(errors);
-    if (Object.keys(errors).length === 0) {
-      try {
-        await dispatch(signOut());
-      } catch (err) {
-        console.log(err);
-        setErrors({
-          email: "Server side error",
-        });
-      } finally {
-        // setLoading(false);
+      if (subText == "Subscribe") {
+        setSubText("Unsubscribe");
+        var response = await api.subscription.subscribejob([subscribedFilters]);
+        console.log(response);
+        setSubId(response.toString());
+      } else {
+        var response = await api.subscription.unSubscribeJob(subId.toString());
+        console.log(response);
+        setSubId(response.toString());
+        setSubText("Subscribe");
       }
-    } else {
-      //setLoading(false);
     }
   }
+
   return (
     <div>
       {operation == "search" ? (

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import validator from "validator";
 //actions
 import { signIn } from "../../Redux/Slicers/user.slice";
@@ -10,6 +12,7 @@ import Button from "../../Components/Button";
 
 function AuthPage(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     email: "",
@@ -31,6 +34,7 @@ function AuthPage(props) {
     if (Object.keys(errors).length === 0) {
       try {
         await dispatch(signIn(data));
+        history.push("/home");
       } catch (err) {
         console.log(err);
         setErrors({

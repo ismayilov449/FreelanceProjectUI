@@ -28,7 +28,7 @@ function App(props) {
   const [jobs, setJobs] = useState([]);
   const [operation, setOperation] = useState("all");
   const [filters, setFilters] = useState({});
-  const [subscribedFilters, setSubscribedFilters]=useState({});
+  const [subscribedFilters, setSubscribedFilters] = useState({});
   if (history.location.pathname === "/") {
     history.push("/home");
   }
@@ -80,7 +80,7 @@ function App(props) {
       <div class="pusher">
         <Fragment>
           <Switch>
-            <WithAuth
+            <Route
               exact
               path="/home"
               component={(props) => (
@@ -94,8 +94,8 @@ function App(props) {
               )}
             />
             {/* Job */}
-            <WithAuth exact path="/details" component={JobDetail} />
-            <WithAuth exact path="/createJob" component={CreateJob} />
+            <Route exact path="/details" component={JobDetail} />
+            <Route exact path="/createJob" component={CreateJob} />
             <Route exact path="/404" component={NoAccessPage} />
             <Route exact path="*" component={NotFoundPage} />
           </Switch>
